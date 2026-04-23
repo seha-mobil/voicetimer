@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vakit-olcer-v2';
+const CACHE_NAME = 'vakit-olcer-v1';
 const ASSETS = [
     './',
     './index.html',
