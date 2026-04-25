@@ -1,12 +1,23 @@
 {
+  "id": "/",
   "name": "Vakit Ölçer",
   "short_name": "Vakit Ölçer",
   "description": "Sesli komutlara duyarlı akıllı kronometre uygulaması.",
-  "start_url": "index.html",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#6366f1",
-  "theme_color": "#6366f1",
+  "orientation": "portrait",
+  "background_color": "#f4fbff",
+  "theme_color": "#1d86ff",
   "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
     {
       "src": "icon.png",
       "sizes": "512x512",
