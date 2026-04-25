@@ -6,9 +6,12 @@
     <title>Vakit Ölçer | Akıllı Sesli Kronometre</title>
     <meta name="description" content="Öğrenciler için tasarlanmış, Türkçe sesli komutlarla çalışan modern ve şık kronometre uygulaması.">
     <link rel="stylesheet" href="style.css?v=5">
-    <link rel="manifest" href="manifest.json?v=5">
+    <link rel="manifest" href="manifest.json?v=6">
+    <link rel="apple-touch-icon" href="icon.png">
     <meta name="theme-color" content="#1d86ff">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vakit Ölçer">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body data-theme="aurora">
@@ -82,11 +85,11 @@
         </div>
     </div>
 
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=6"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=5')
+                navigator.serviceWorker.register('./sw.js?v=6')
                     .then((registration) => console.log('Service worker kaydedildi:', registration))
                     .catch((error) => console.log('Service worker hatası:', error));
             });
