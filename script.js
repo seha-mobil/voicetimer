@@ -1,6 +1,6 @@
 let startTime;
 let elapsedTime = 0;
-let timerInterval;
+let animationFrameId;
 let isRunning = false;
 let isListening = false;
 let wakeLock = null;
@@ -9,6 +9,7 @@ let lastHandledAt = 0;
 let listeningTimeout = null;
 let restartTimeout = null;
 let shouldKeepListening = false;
+let lastRenderedTime = '';
 
 const COMMAND_COOLDOWN_MS = 1200;
 const LISTEN_WINDOW_MS = 5000;
@@ -49,9 +50,25 @@ function formatTime(time) {
 
 function print(time) {
     const formatted = formatTime(time);
+    const nextRenderedTime = `${formatted.m}:${formatted.s}.${formatted.ms}`;
+
+    if (nextRenderedTime === lastRenderedTime) {
+        return;
+    }
+
+    lastRenderedTime = nextRenderedTime;
     displayMinutes.innerText = formatted.m;
     displaySeconds.innerText = formatted.s;
     displayMilliseconds.innerText = formatted.ms;
+}
+
+function tick() {
+    elapsedTime = Date.now() - startTime;
+    print(elapsedTime);
+
+    if (isRunning) {
+        animationFrameId = requestAnimationFrame(tick);
+    }
 }
 
 function showStart() {
@@ -72,20 +89,16 @@ function start() {
     if (isRunning) return;
 
     startTime = Date.now() - elapsedTime;
-    timerInterval = setInterval(() => {
-        elapsedTime = Date.now() - startTime;
-        print(elapsedTime);
-    }, 10);
-
     showStop();
     isRunning = true;
     appCard.classList.add('running');
+    animationFrameId = requestAnimationFrame(tick);
 }
 
 function stop() {
     if (!isRunning) return;
 
-    clearInterval(timerInterval);
+    cancelAnimationFrame(animationFrameId);
     showStart();
     isRunning = false;
     appCard.classList.remove('running');
@@ -94,6 +107,7 @@ function stop() {
 function reset() {
     stop();
     elapsedTime = 0;
+    lastRenderedTime = '';
     print(elapsedTime);
 }
 
@@ -405,7 +419,8 @@ if (SpeechRecognition) {
     if (isHandsFreeEnabled()) {
         startListening();
     }
-} else {
+}
+ else {
     if (debugTranscript) {
         debugTranscript.innerText = 'Tarayıcı ses desteği sunmuyor.';
     }
