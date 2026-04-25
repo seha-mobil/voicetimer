@@ -487,3 +487,47 @@ h1 {
     .theme-switcher { right: 14px; bottom: 14px; }
     .theme-panel { min-width: 154px; }
 }
+
+@media (hover: none), (pointer: coarse) {
+    .ambient-grid,
+    .ambient-orb {
+        display: none;
+    }
+
+    .card {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: 0 16px 32px -20px rgba(24, 74, 132, 0.18);
+    }
+
+    .timer-container {
+        box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 10px 24px -22px rgba(44, 48, 84, 0.2);
+    }
+
+    .btn-primary,
+    .theme-fab {
+        box-shadow: 0 12px 20px -12px var(--primary-glow);
+    }
+
+    .card:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .theme-fab:hover {
+        transform: none;
+    }
+
+    .running .timer,
+    .voice-status.active .mic-icon {
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
