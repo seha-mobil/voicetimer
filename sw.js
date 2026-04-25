@@ -1,12 +1,12 @@
-const CACHE_NAME = 'vakit-olcer-v6';
+const CACHE_NAME = 'vakit-olcer-v7';
 const ASSETS = [
     './',
     './index.html',
-    './index.html?ts=9',
-    './style.css?v=5',
-    './script.js?v=6',
+    './index.html?ts=10',
+    './style.css?v=7',
+    './script.js?v=7',
     './icon.png',
-    './manifest.json?v=6'
+    './manifest.json?v=7'
 ];
 
 self.addEventListener('install', (event) => {
