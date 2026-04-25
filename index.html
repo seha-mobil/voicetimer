@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vakit Ölçer | Akıllı Sesli Kronometre</title>
     <meta name="description" content="Öğrenciler için tasarlanmış, Türkçe sesli komutlarla çalışan modern ve şık kronometre uygulaması.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#6366f1">
+    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="manifest" href="manifest.json?v=5">
+    <meta name="theme-color" content="#1d86ff">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
-<body>
+<body data-theme="aurora">
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="ambient-orb ambient-orb-left" aria-hidden="true"></div>
+    <div class="ambient-orb ambient-orb-right" aria-hidden="true"></div>
+
     <div class="container">
         <div class="card" id="appCard">
+            <div class="card-badge">Voice Timer</div>
             <h1>Vakit Ölçer</h1>
-            <p class="subtitle">Zaman Yönetimi & Odaklanma</p>
+            <p class="subtitle">Zaman Yönetimi ve Odaklanma</p>
 
             <div class="timer-container">
+                <div class="timer-label">Odak Süresi</div>
                 <div class="timer" id="display">
                     <span id="minutes">00</span>:<span id="seconds">00</span><span class="ms">.<span id="milliseconds">00</span></span>
                 </div>
@@ -27,7 +33,7 @@
                 <button class="btn btn-secondary" id="resetBtn" title="Sıfırla">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                 </button>
-                
+
                 <button class="btn btn-primary" id="startStopBtn">
                     <span id="btnIcon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -36,28 +42,53 @@
                 </button>
             </div>
 
-            <div class="voice-status" id="voiceToggle" title="Sesli Komutu Aç/Kapat">
-                <div class="mic-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <label class="mode-toggle" for="handsFreeToggle">
+                <div class="mode-copy">
+                    <span class="mode-title">Eller Serbest Mod</span>
+                    <span class="mode-text">İlk izinden sonra sürekli dinleme açık kalsın</span>
                 </div>
-                <span class="status-text" id="voiceStatus">Sesli Kontrol: Kapalı</span>
-            </div>
+                <span class="switch">
+                    <input id="handsFreeToggle" type="checkbox" checked>
+                    <span class="switch-slider"></span>
+                </span>
+            </label>
 
             <div class="info">
-                <p>Sesli komutları kullanmak için mikrofona dokunun.</p>
                 <p>Komutlar: <span class="command">"Başla"</span>, <span class="command">"Dur"</span>, <span class="command">"Sıfırla"</span></p>
-                <p id="debugTranscript" style="color: rgba(255, 255, 255, 0.5); font-style: italic; font-size: 0.85rem; margin-top: 10px; min-height: 20px;"></p>
+                <p id="debugTranscript" style="color: rgba(93, 111, 138, 0.8); font-style: italic; font-size: 0.85rem; margin-top: 10px; min-height: 20px;"></p>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="theme-switcher" id="themeSwitcher">
+        <button class="theme-fab" id="themeToggle" type="button" title="Renk temasını seç">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2 2 0 0 0-2 2c0 .74.4 1.39 1 1.73V9a1 1 0 0 0 2 0V6.73A2 2 0 0 0 14 5a2 2 0 0 0-2-2Z"/><path d="M18.36 7.05a2 2 0 0 0-2.73.73c-.37.64-.35 1.47-.01 2.06l-1.98 1.14a1 1 0 0 0 1 1.73l1.98-1.14a2 2 0 0 0 1.74.35 2 2 0 0 0 .99-3.87Z"/><path d="M18 16a2 2 0 0 0-1.73 1H14a1 1 0 0 0 0 2h2.27A2 2 0 1 0 18 16Z"/><path d="M8.38 12.84 6.4 11.7a1 1 0 1 0-1 1.73l1.98 1.14a2 2 0 1 0 1-1.73Z"/><path d="M8 5a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/></svg>
+        </button>
+
+        <div class="theme-panel" id="themePanel">
+            <p class="theme-panel-title">Tema Seç</p>
+            <button class="theme-option active" type="button" data-theme="aurora">
+                <span class="theme-swatch aurora"></span>
+                <span>Aurora</span>
+            </button>
+            <button class="theme-option" type="button" data-theme="sunset">
+                <span class="theme-swatch sunset"></span>
+                <span>Sunset</span>
+            </button>
+            <button class="theme-option" type="button" data-theme="forest">
+                <span class="theme-swatch forest"></span>
+                <span>Forest</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js?v=5"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW Kayıtlı:', reg))
-                    .catch(err => console.log('SW Hatası:', err));
+                navigator.serviceWorker.register('./sw.js?v=5')
+                    .then((registration) => console.log('Service worker kaydedildi:', registration))
+                    .catch((error) => console.log('Service worker hatası:', error));
             });
         }
     </script>
